@@ -1,5 +1,4 @@
-
-Columcille: simple split window management in Vim
+Columcille: manage split windows in Vim
 =================================================
 
 Columcille allows a Vim user to manage split windows using simple `:Columns` and `:Rows` commands.
