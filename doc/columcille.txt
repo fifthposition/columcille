@@ -1,0 +1,222 @@
+columcille.txt	For Vim version 7.3+	Last change: 2013 October 4
+
+================================================================================
+
+1. Introduction                                    *columcille*
+
+Split windows are said by many (actually probably only one: the author) to be
+the best thing to happen to Vim users since whatever was Vim's equivalent of
+sliced bread. As many of us (again, probably only the author) go on to split
+our Vim instances into windows of astronomical numbers, however -- or even of
+some numbers which we could safely refer to as being more down-to-earth, such
+as nine or 10 -- navigating between the open windows in order to manage them
+can become a chore-like and often tedious process of memorizing Vim's various
+window movement commands.
+
+That is where this plugin may optionally come in. Columcille allows you to set
+the number of open top-level vertical windows (vertical splits, or "columns")
+and horizontal windows in a given vertical window (regular splits -- "rows")
+with single commands.
+
+================================================================================
+
+2. Functionality                     *columcille-functionality*
+
+This plugin currently provides two commands:
+
+    * :Columns <number> 	Open or close columns until <number> are open
+    * :Rows <number> 	Open or close rows in a column until <number> are open
+
+For exciting (OK, probably not) details on these, see |:Columns| and |:Rows|.
+
+--------------------------------------------------------------------------------
+
+2.1 Setting the number of columns                   *:Columns*
+
+Beginning with the first window, this command will count the number of
+top-level vertical splits currently open. It will then move to the last open
+column. If the current column count is lower than the argument given to the
+command, it will open new columns with |vs| until the specified number is
+reached. If the current column count is higher than the argument given to the
+command, it will close columns using |q| until the specified number is
+reached; if a column to be closed contains multiple rows (horizontal windows),
+each of its rows will be closed first. The command then returns to the window
+from which it was executed, if it still exists.
+
+As an example, given the following layout:
+
+    +----------------+----------------+----------------+
+    |                |                |                | 
+    |                |                |                |
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    +----------------+----------------+----------------+
+
+running :Columns 2 will result in (roughly)
+
+    +-------------------------+------------------------+
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         +------------------------+
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         +------------------------+
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    +-------------------------+------------------------+
+
+and running :Columns 4 will result in
+
+    +-----------+------------+------------+------------+
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           +------------+            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           +------------+            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    +-----------+------------+------------+------------+
+
+Given this layout:
+
+    +-----------+------------+------------+------------+
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            +------------+            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            +------------+            |
+    |           |            |            |            |
+    |           |            |            |            |
+    |           |            |            |            |
+    +-----------+------------+------------+------------+
+
+running :Columns 2 will result in (again, roughly)
+
+    +-------------------------+------------------------+
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    |                         |                        |
+    +-------------------------+------------------------+
+
+(Notice that in this last example, all of the three horiontal windows which made
+up the third column have been closed.)
+
+If the argument given requires windows to be closed, the command will use |q|
+to close those. If any of these extra windows are open to buffers which have
+not been saved yet, this may result in an error. If you wish to save all
+currently-open buffers (for example, before running this command), see |wa|.
+Any new columns opened in the case of the argument requiring more windows will
+be opened to the same buffer as is the last currently-open column.
+
+--------------------------------------------------------------------------------
+
+2.2 Setting the number of rows in a column             *:Rows*
+
+Beginning with the first horizontal window (row) open in the current top-level
+vertical window (column), this command will count the number of rows open in
+the current column. It will then move to the last (bottom) row. If the row
+count in the current column is lower than the argument given to the command,
+it will open new rows with |sp| until the specified number is reached. If the
+current column's row count is higher than the argument given to the command,
+it will close rows using |q| until the specified number is reached. The
+command then returns to the window from which it was executed, if it still
+exists.
+
+As an example, given the following layout:
+
+    +----------------+----------------+----------------+
+    |                |                |                | 
+    |                |                |                |
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    +----------------+----------------+----------------+
+
+running :Rows 2 from a window in the second column will result in
+
+    +----------------+----------------+----------------+
+    |                |                |                | 
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    |                |                |                |
+    +----------------+----------------+----------------+
+
+Running :Rows 4 will instead result in
+
+    +----------------+----------------+----------------+
+    |                |                |                | 
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    |                +----------------+                |
+    |                |                |                |
+    |                |                |                |
+    +----------------+----------------+----------------+
+
+================================================================================
+
+3. Changelog                             *columcille-changelog*
+
+0.0.1
+    * Initial version
+
+================================================================================
+
+4. About                                     *columcille-about*
+
+Columcille is by the author of the plugin in which its source appears.
+
+Latest version:            https://github.com/fifthposition/columcille
+Bug reports:               https://github.com/fifthposition/columcille/issues
+Feature requests:          https://github.com/fifthposition/columcille/issues
+Contact:                   https://github.com/fifthposition
+National Coffee Day:       September 29
+
+The latest version should be mirrored at the central Vim Scripts site
+(http://www.vim.org/scripts/), but will always be available from the URL
+listed for "Latest version" above.
+
+
+vim:textwidth=80:expandtab:filetype=help
