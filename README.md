@@ -9,7 +9,7 @@ Installation
 Either
 
 * download the files as a ZIP; extract that and place the files in each directory under their matching counterparts under `~/.vim` (so for example, files under [`doc/`](doc) here would go under `~/.vim/doc/`), **or**
-* install using [Vundle](https://github.com/gmarik/vundle): add `Bundle 'fifthposition/columcille' to the bundle list in your `~/.vimrc`, start Vim, and run `:BundleInstall` **(highly recommended)**.
+* install using [Vundle](https://github.com/gmarik/vundle): add `Bundle 'fifthposition/columcille'` to the bundle list in your `~/.vimrc`, start Vim, and run `:BundleInstall` **(highly recommended)**.
 
 Usage
 -----
