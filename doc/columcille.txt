@@ -123,8 +123,8 @@ running :Columns 2 will result in (again, roughly)
     |                         |                        |
     +-------------------------+------------------------+
 
-(Notice that in this last example, all of the three horiontal windows which made
-up the third column have been closed.)
+(Notice that in this last example, all of the three horizontal windows which
+made up the third column have been closed.)
 
 If the argument given requires windows to be closed, the command will use |q|
 to close those. If any of these extra windows are open to buffers which have
@@ -208,11 +208,11 @@ Running :Rows 4 will instead result in
 
 Columcille is by the author of the plugin in which its source appears.
 
-Latest version:            https://github.com/fifthposition/columcille
-Bug reports:               https://github.com/fifthposition/columcille/issues
-Feature requests:          https://github.com/fifthposition/columcille/issues
-Contact:                   https://github.com/fifthposition
-National Coffee Day:       September 29
+Latest version:                   https://github.com/fifthposition/columcille
+Bug reports:                      https://github.com/fifthposition/columcille/issues
+Feature requests:                 https://github.com/fifthposition/columcille/issues
+Contact:                          https://github.com/fifthposition
+National Coffee Day (U.S.):       September 29
 
 The latest version should be mirrored at the central Vim Scripts site
 (http://www.vim.org/scripts/), but will always be available from the URL
